@@ -63,7 +63,7 @@ Discussion Venues
 # Introduction
 
 The IAB organized a workshop in June 2002 to establish a dialog between
-network operators and protocol developers, and to guide IETF when
+network operators and protocol developers, to guide IETF when
 working on network management protocols and data models. The outcome of that workshop
 was documented in the "Overview of the 2002 IAB Network Management
 Workshop" {{!RFC3535}} which identified 14 operator requirements for
@@ -87,7 +87,7 @@ This document describes the challenges in network operations, and
 proposes a new framework based on knowledge graph, to solve (some of)
 those operational challenges, mainly how to automatically assure networks.
 
-As introduction, let's review the difference between information model and data model.
+As an introduction, let's review the difference between information model and data model.
 Quoting RFC 3444, “The main purpose of an information model is to model
 managed objects at a conceptual level, independent of any specific
 implementations or protocols used to transport the data. The degree of
@@ -117,8 +117,8 @@ This section covers the current operational challenges.
 
 Modern network operators are inundated with vast amounts of data
 generated from various sources within the network. This data encompasses
-information from the management plane, control plane, and data plane,
-each contributing to a massive influx of information. The sheer volume
+information from the management plane, control plane, and data plane.
+Each contributing to a massive influx of information. The sheer volume
 of data is staggering, making it challenging even for advanced computer
 systems to process and analyze effectively.
 
@@ -127,7 +127,7 @@ systems to process and analyze effectively.
 Data analysts with network domain knowledge play a crucial role in leveraging
 this data to predict faults, perform Root Cause Analysis (RCA), and implement
 automatic remediation. However, they often struggle to extract useful
-information due to the overwhelming volume and complexity of the data. The 
+information due to the overwhelming volume, data standardization and complexity of the data. The 
 challenge lies not only in processing the data but also in finding meaningful
 patterns and correlations that can derive actionable insights.
 
@@ -146,8 +146,8 @@ Ultimately, all collected data must be correlated back to specific
 connectivity services (and its customers). This correlation is critical for
 understanding the impact of network events on service quality and
 customer experience. However, the process of linking management plane
-data with control and data plane information, to provide a coherent
-connectivity service and customer perspective is extremely challenging. Even as
+data with control plane and data plane information, is to provide a coherent
+connectivity service with customer perspective is extremely challenging. Even as
 a simpler challenge, it's not always easy to correlate the configuration management 
 plane information with the streamed operational data: YANG, as a data modeling 
 language simplifies the situation, if used for both config and streaming but
@@ -162,7 +162,7 @@ may be lost within the engines of the management and analytics systems, leading
 to incomplete or incorrect analyses.
 
 For example, data is stored using a variety of data model languages, sometime different 
-schemas for a specific data model languages (typically YANG models, which are sometimes
+schemas for a specific data model languages (typically YANG models), which are sometimes
 different per router vendors, often siloed in different applications and storage platforms.
 Establishing relationships between this data, especially when
 disconnected from the service context and original intent, is
@@ -185,19 +185,19 @@ The context of the collected data is often lost, complicating the task
 of network monitoring and analysis. For instance, it can be challenging
 to determine what a particular interface represents (in other words, its role): 
 is it a Provider Edge (PE), Provider (P), Customer Edge (CE), or an interface on an Autonomous System
-Boundary Router (ASBR)? Based on this particular context, the intent is obviously different, 
+Boundary Router (ASBR) (or ABR)? Based on this particular context, the intent is obviously different, 
 and, as a consequence, this context is key to interpret the collected data. For example,
 the IP addresses observed on CE router, PE router, or P router have different context (and on the PE router, 
-it actually depend if we speak about the CE-facing or PE-facing interface).
+it actually depends if we refer to CE-facing or PE-facing interface).
 As a different example, understanding whether a link serves
 as a primary connection for certain customers or a backup for others is
 critical but frequently ambiguous.
 
 ## Data Collection Methods and Interpretation
 
-The methods and intervals at which data is collected also vary, adding
+The methods and intervals at which data is collected also vary, which contributes in adding
 another layer of complexity. Data might be sampled within specific time
-windows, on change, on demand, or periodically. It might represent an
+windows, on-change, on-demand, or periodically. It might represent an
 aggregation or calculation of other values. Understanding how the router
 or analytics engine computes this data is vital for accurate analysis
 and troubleshooting.
@@ -224,7 +224,7 @@ multiple sources of truth in networking:
 - the network itself (applied state, described by the Digital Map)
 
 - the inventory, typically stored across different systems, with
-  different Id (sometimes UUID {{!RFC7950}})
+  different ID (sometimes UUID {{!RFC7950}})
 
 - the IP Address Management (IPAM) is another other source of truth
 
@@ -233,7 +233,7 @@ multiple sources of truth in networking:
 ## Machine Readable Knowledge
 
 While we mentioned multiple data sources, with different data modeling languages,
-the requirement is to one the different data sources in a machine readable way,
+the requirement is to have one data sources in a machine readable way,
 with the ability to correlate and link information.  
 Note that, sometimes, the modeling language is simply not existent, as protocols 
 such as BMP or BGP-LS directly stream PDUs.
@@ -295,7 +295,7 @@ order for it to happen.
 On the other side, with different technology domains and different protocols, come
 different data models. In order to assure cross domain use cases, the
 network management system and network operators must integrate all the
-technologies, protocols, and therefore data models. In other words, it
+technologies, protocols, and therefore data models as well. In other words, it
 must perform the difficult and time-consuming job of integrating &
 mapping information from different data models. Indeed, in some
 situations, there exist different ways to model the same type of
@@ -333,15 +333,15 @@ simple CLI command: “show ip interface” for basic interface information.
   ifIndex concept (ifIndex in MIB and if-index in YANG). This
   facilitates the mapping.
 
-- Now, let’s look at the IPFIX model. Even if the ingressInterface and
+- In the context of IPFIX models, even if the ingressInterface and
   egressInterface report the famous ifIndex values within the flow
-  record, the interface semantic changed: we have one specific field for
+  record, the interface semantic changed. We have one specific field for
   the ingress and another one for egress traffic. The MIB object
   ifIndex doesn’t make that distinction. While it’s not difficult to map
   the IPFIX interface information elements with the MIB and YANG
   interface ones, the different semantic must be hardcoded in the NMS.
 
-- Now, to take protocols from the AAA world, TACACS+ and RADIUS
+- For the protocols from the AAA world, TACACS+ and RADIUS
   interfaces are called “ports” to use the right terminology. Those have
   nothing to do with the networking ifIndex definitions, even if it’s
   perfectly fine to host TACACS+ or RADIUS in routers.
@@ -351,7 +351,7 @@ simple CLI command: “show ip interface” for basic interface information.
   Ethernet versus gigE versus gigEthernet … X/Y.Z as an example) for a
   machine to read.
 
-Right now, these concepts is known inside of network engineer heads, 
+At this point, these concepts are known inside network engineer's heads, 
 their network domain knowledge, but how to convey this information to a
 data scientist lacking the network domain knowledge but capable to
 analyze data systematically? The cost of documenting this information
@@ -376,8 +376,8 @@ level via {{!RFC9182}} all have to be understood.
 
 Many of the operators (at the time of writing) who are trying to document and
 manage these relationships are trying to do it using various spreadsheets and 
-version control systems. What if instead, we could provide a way to define and
-query those relationships in a way that could instantly answer all the 
+version control systems. Instead, we could provide a way to define and
+query those relationships in a manner that could instantly answer all the 
 questions that an operator has.  
 
 What if we could provide this information not only in a format the operator 
