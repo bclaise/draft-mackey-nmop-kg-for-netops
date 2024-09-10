@@ -262,10 +262,10 @@ Internet-Draft           Knowledge Graph NetOps           September 2024
    analyses.
 
    For example, data is stored using a variety of data model languages,
-   sometime different schemas for a specific data model languages
-   (typically YANG models, which are sometimes different per router
-   vendors, often siloed in different applications and storage
-   platforms.  Establishing relationships between this data, especially
+   sometimes different schemas for a specific data model language
+   (typically YANG models, which are optimized but proprietary per router
+   vendors and  also often siloed in different applications and storage
+   platforms).  Establishing relationships between this data, especially
    when disconnected from the service context and original intent, is
    exceedingly difficult.  This fragmentation hinders the ability to
    maintain a cohesive understanding of network operations and their
@@ -312,7 +312,7 @@ Internet-Draft           Knowledge Graph NetOps           September 2024
 
    The methods and intervals at which data is collected also vary,
    adding another layer of complexity.  Data might be sampled within
-   specific time windows, on change, on demand, or periodically.  It
+   specific time windows, on change, on demand or periodically.  It
    might represent an aggregation or calculation of other values.
    Understanding how the router or analytics engine computes this data
    is vital for accurate analysis and troubleshooting.
@@ -361,7 +361,7 @@ Internet-Draft           Knowledge Graph NetOps           September 2024
 2.11.  Machine Readable Knowledge
 
    While we mentioned multiple data sources, with different data
-   modeling languages, the requirement is to one the different data
+   modeling languages, the requirement is to store the different data
    sources in a machine readable way, with the ability to correlate and
    link information.
    Note that, sometimes, the modeling language is simply not existent,
@@ -905,22 +905,22 @@ Internet-Draft           Knowledge Graph NetOps           September 2024
 8.  Translation of YANG to RDF
 
    Since the original YANG specification [RFC6020], IETF has embraced
-   YANG as the way to define any new models or API, from the device all
-   the way up the Service model [RFC8299].  How easy would it be to
+   YANG as the way to define any new models or APIs, from the device all
+   the way up to the Service model [RFC8299].  How easy would it be to
    convert these vast model set to RDF ?.
 
-   RDF has it roots in semantic web and is defined by the w3c, who are
+   RDF has its roots in semantic web and is defined by the w3c, who are
    also the owners of the XML standard.  The original [RFC6020]
    definition for YANG has XML deeply embedded, defining serialization
-   formats for the YANG (YIN) in XML as well as of course instance of
+   formats for the YANG (YIN) in XML as well as of course instances of
    YANG data used by NETCONF.
 
    Translation of XML to RDF is a well described problem and many tools
-   exist in order to achieve it, w3c themselves have R2RML that allow
-   custom definition of mappings.
+   exist in order to achieve it, w3c themselves have R2RML that allows
+   custom definitions of mappings.
 
    Generation of IRIs for YANG schema objects can be created using
-   schema paths and IRIs for YANG instance data using XPaths.  Their are
+   schema paths and IRIs for YANG instance data using XPaths.  There are
    several advantages to this approach, the most important being that
    the IRI is deterministic and could be generated externally by a
    knowledge system without need to access the real data.  There is a
@@ -936,8 +936,8 @@ Internet-Draft           Knowledge Graph NetOps           September 2024
 8.1.  Some pointers to existing work for linked data
 
    Linked data and semantic web has already been embraced by TMF and
-   ETSI, their reasons for adoption are valid both for them and for the
-   IETF when looking to link data in different system and to capture
+   ETSI, their reasons for adoption are both valid for them and for the
+   IETF when aiming to link data in different systems and to capture
    knowledge.
 
 8.1.1.  NGSI-LD (Next Generation IoT Services Layer - Lightweight Data)
@@ -975,8 +975,7 @@ Internet-Draft           Knowledge Graph NetOps           September 2024
 9.  Next Steps for the Industry
 
    It's important to note, the authors are not proposing creating a new
-   model for the network, the goal is not to create yet another model of
-   the network, there is much work being done in all of the existing
+   model for the network, there is much work being done in all of the existing
    SDOs with numerous models managing all aspects of the network and
    business.  The authors are proposing ways to connect all of this data
    and through those connections find the semantic of the information
@@ -985,7 +984,7 @@ Internet-Draft           Knowledge Graph NetOps           September 2024
 
    To this end, the industry must come together to define ways to
    describe the connections between data (either at the instance level
-   or at the schema level).  Agree formats for importing existing
+   or at the schema level).  Agree on formats for importing existing
    protocol schemas into RDF e.g. in IETF: YANG, IPFIX, BMP but also
    other models in different SDOs
 
